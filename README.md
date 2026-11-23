@@ -1,9 +1,10 @@
-# Concepts IA — Mang Production
+# Mang Production — concepts IA (3)
 
-Sites concepts pour des marques inventées : chaque page est un film généré par IA que l'on pilote au scroll, avec des interactions en WebGL.
+Page de présentation interne des concepts.
 
-- **Aurique** — Huile d'or N°7 : `sites/aurique/`
-- **Opercule** — Soleil scellé : `sites/opercule/`
-- **Le Cassiel** — Palace, Paris : `sites/cassiel/`
+Ouvrir en local : double-cliquer sur `ouvrir.bat`, ou `python -m http.server 8080` dans ce dossier puis http://localhost:8080
+(les sites utilisent WebGL et doivent être servis en HTTP).
 
-Maisons, lieux, produits et prix imaginaires. Images et vidéos générées par IA.
+- Aurique : `sites/aurique/`
+- Opercule : `sites/opercule/`
+- Le Cassiel : `sites/cassiel/`
