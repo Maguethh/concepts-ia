@@ -1,4 +1,4 @@
-# Concepts — trois maisons imaginaires
+# Concepts IA — Mang Production
 
 Sites concepts pour des marques inventées : chaque page est un film généré par IA que l'on pilote au scroll, avec des interactions en WebGL.
 
