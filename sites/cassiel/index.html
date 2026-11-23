@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Cassiel — Palace, Paris</title>
+<meta name="description" content="Le Cassiel, palace parisien fictif de 1911. Une soirée au cinquième : la cour, le hall, le jardin d'hiver, la suite 501 et son balcon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+
+<div id="loader"><div class="lw"><div class="lmark">LE CASSIEL</div><div class="lbar"><i id="lfill"></i></div><div class="lpct" id="lpct">0 %</div></div></div>
+
+<header class="top">
+  <a class="brand" href="#" id="toTop">LE CASSIEL</a>
+  <nav class="hours" id="hours">
+    <span data-go="0">19 h 04 · La cour</span>
+    <span data-go="2">19 h 10 · Le hall</span>
+    <span data-go="3">19 h 20 · Le jardin d'hiver</span>
+    <span data-go="7">19 h 48 · Le cinquième</span>
+    <span data-go="10">19 h 55 · Le balcon</span>
+  </nav>
+  <a class="book" href="#sejour">Réserver</a>
+</header>
+
+<!-- the film: one fixed stage, scrubbed by the scroll -->
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <div id="ov">
+    <!-- elevator doors (code) -->
+    <div id="lift"><div class="leaf l"></div><div class="leaf r"></div>
+      <div class="dial"><svg viewBox="0 0 200 110"><path d="M10 100 A90 90 0 0 1 190 100" fill="none" stroke="#b0894e" stroke-width="2"/>
+        <g id="ticks"></g><line id="needle" x1="100" y1="100" x2="100" y2="22" stroke="#e8cf97" stroke-width="3" stroke-linecap="round"/><circle cx="100" cy="100" r="7" fill="#b0894e"/></svg>
+        <div class="floor" id="floorN">0</div></div>
+    </div>
+    <div id="doorLight"></div>
+    <img id="lockKey" src="img/key.png" alt="">
+  </div>
+</div>
+
+<!-- chapter texts, one per stop -->
+<div id="texts">
+  <section class="tx" data-s="0">
+    <p class="kick">Palace · Paris VIIIᵉ · depuis 1911</p>
+    <h1 class="title">Le Cassiel</h1>
+    <p class="lede" id="litText">Il est 19 h 04. Passez la main sur la façade : le palais s'allume.</p>
+    <p class="hint">Faites défiler pour entrer</p>
+  </section>
+  <section class="tx" data-s="1">
+    <p class="kick">19 h 06 · Le seuil</p>
+    <h2 class="title">Il a plu vers cinq heures.</h2>
+    <p class="lede">Les pavés gardent l'eau et l'or du hall. Touchez la flaque.</p>
+  </section>
+  <section class="tx" data-s="2">
+    <p class="kick">19 h 10 · Le grand hall</p>
+    <h2 class="title">Sous le lustre, le bouquet de la semaine.</h2>
+    <p class="lede">La réception à droite, l'escalier à gauche, le jardin d'hiver au fond. <b>Glissez</b> pour faire le tour du bouquet.</p>
+  </section>
+  <section class="tx" data-s="3">
+    <p class="kick">19 h 20 · Le jardin d'hiver</p>
+    <h2 class="title">Un verre, le temps de préparer votre suite.</h2>
+    <div class="drinks" id="drinks">
+      <button data-d="0" class="on"><i style="background:#c9893f"></i>Heure dorée</button>
+      <button data-d="1"><i style="background:#b7a3d6"></i>Lavande</button>
+      <button data-d="2"><i style="background:#e9d58a"></i>Coing &amp; champagne</button>
+      <button data-d="3"><i style="background:#c4d27a"></i>Chartreuse fumée</button>
+    </div>
+    <p class="lede" id="keyText">Votre clé vous attend sur le comptoir. <b>Prenez-la.</b></p>
+  </section>
+  <section class="tx" data-s="4">
+    <p class="kick">19 h 44 · Le hall, vu du bar</p>
+    <h2 class="title">L'ascenseur de 1911 vous attend.</h2>
+    <p class="lede">Juste après la réception, côté entrée.</p>
+  </section>
+  <section class="tx" data-s="5">
+    <p class="kick">19 h 46</p>
+    <h2 class="title">Cinq étages, en citronnier et laiton.</h2>
+  </section>
+  <section class="tx" data-s="6">
+    <p class="kick">19 h 47 · Cinquième étage</p>
+    <h2 class="title">Le couloir est silencieux.</h2>
+  </section>
+  <section class="tx" data-s="7">
+    <p class="kick">19 h 48 · Suite 501</p>
+    <h2 class="title">La clé est lourde.</h2>
+    <p class="lede" id="turnText"><b>Tournez la clé</b> : glissez vers la droite, ou cliquez.</p>
+  </section>
+  <section class="tx" data-s="8">
+    <p class="kick">19 h 50 · Suite 501 · 64 m²</p>
+    <h2 class="title">Au fond, la fenêtre que vous regardiez depuis la cour.</h2>
+  </section>
+  <section class="tx" data-s="9"></section>
+  <section class="tx" data-s="10">
+    <p class="kick" id="nightKick">19 h 55 · Le balcon</p>
+    <h2 class="title" id="nightTitle">À 19 heures, vous regardiez cette fenêtre. Ce soir, c'est d'ici que l'on regarde Paris.</h2>
+    <div class="rail" id="rail"><div class="track"></div><div class="knob" id="knob"></div>
+      <span style="left:0%">19 h 55</span><span style="left:50%">3 h 00</span><span style="left:100%">7 h 12</span></div>
+    <p class="hint">Faites glisser pour laisser passer la nuit</p>
+  </section>
+</div>
+
+<div id="hots"></div>
+<div id="card"><img alt=""><div><p class="kick"></p><h3></h3><p class="body"></p></div><button aria-label="Fermer">×</button></div>
+<div id="keyHud" title="Votre clé"><img src="img/key.png" alt=""><span>501</span></div>
+
+<div id="spacer"></div>
+
+<!-- after the film -->
+<main id="after">
+  <div class="voile"><img src="img/VOILE.jpg" alt=""></div>
+
+  <section class="night" id="sejour">
+    <div class="paper">
+      <p class="kick">Votre nuit au Cassiel</p>
+      <h2>Suite 501</h2>
+      <ul class="recap">
+        <li><span>Balcon</span><b>sur la cour d'honneur</b></li>
+        <li><span>Verre d'accueil</span><b id="rDrink">Heure dorée</b></li>
+        <li><span>Café servi</span><b id="rCoffee">sur le balcon, à 7 h 12</b></li>
+      </ul>
+      <form class="book" id="bookForm">
+        <label>Arrivée<input type="date" id="dIn"></label>
+        <label>Départ<input type="date" id="dOut"></label>
+        <label>Voyageurs<select><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+        <button>Réserver cette nuit</button>
+      </form>
+      <p class="price">à partir de 2 900 € la nuit</p>
+      <p class="msg" id="bookMsg"></p>
+    </div>
+  </section>
+
+  <section class="rooms">
+    <div class="head"><p class="kick">Choisir sa fenêtre</p><h2>Soixante-quatorze chambres, trente et une suites.</h2>
+      <div class="toggle" id="dayNight"><button class="on" data-t="d">Le matin</button><button data-t="n">Le soir</button></div></div>
+    <div class="grid3">
+      <article><div class="ph"><img data-d="img/R1.jpg" data-n="img/R1N.jpg" src="img/R1.jpg" alt=""></div><h3>Chambre Cour</h3><p>32 m² · deux fenêtres sur la cour d'honneur · à partir de 1 450 €</p></article>
+      <article><div class="ph"><img data-d="img/K5D.jpg" data-n="img/K5.jpg" src="img/K5D.jpg" alt=""></div><h3>Suite Balcon</h3><p>64 m² · balcon galbé au cinquième · à partir de 2 900 €</p></article>
+      <article><div class="ph"><img data-d="img/R2.jpg" data-n="img/R2N.jpg" src="img/R2.jpg" alt=""></div><h3>Appartement des Toits</h3><p>140 m² · terrasse dans le zinc · à partir de 6 500 €</p></article>
+    </div>
+  </section>
+
+  <section class="duo">
+    <article><img src="img/T1.jpg" alt=""><div><p class="kick">La Table</p><h3>Sous un ciel peint en 1911.</h3><p>Dîner chaque soir de 19 h 30 à 22 h 30. Cuisine de saison, carte courte.</p></div></article>
+    <article><img src="img/P1.jpg" alt=""><div><p class="kick">Le Spa</p><h3>Un bassin de dix-huit mètres sous les voûtes.</h3><p>Dans les anciennes caves du palais, ouvert de 7 h à 22 h.</p></div></article>
+  </section>
+
+  <section class="story">
+    <p class="kick">1911</p>
+    <h2>L'architecte Lucien Arbelot garde la cour d'un hôtel particulier de 1760 et y élève un palace de cinq étages.</h2>
+    <div class="facts"><div><b>74</b><span>chambres</span></div><div><b>31</b><span>suites</span></div><div><b>8</b><span>places au comptoir</span></div><div><b>1</b><span>ascenseur de 1911</span></div></div>
+  </section>
+
+  <footer class="foot">
+    <div class="laq"></div>
+    <div class="fin">
+      <div><b>LE CASSIEL</b><p>18, rue de Montvalier · Paris VIIIᵉ</p></div>
+      <button id="giveBack">Rendre la clé ↑</button>
+    </div>
+    <p class="legal">Concept fictif. Lieu, adresse et prix imaginaires. Images générées par IA.</p>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js?v=3"></script>
+</body>
+</html>

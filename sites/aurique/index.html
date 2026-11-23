@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurique — Huile d'or N°7</title>
+<meta name="description" content="Aurique, huile d'or N°7 : sept huiles précieuses et des feuilles d'or 24 carats dans un flacon de cristal taillé. Maison fictive, concept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Manrope:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <svg class="loader-gem" viewBox="0 0 60 60" aria-hidden="true"><path d="M18 2h24l16 16v24L42 58H18L2 42V18z" fill="none" stroke="#E2B35A" stroke-width="1"/><rect id="loaderFill" x="0" y="60" width="60" height="60" fill="#E2B35A" clip-path="path('M18 2h24l16 16v24L42 58H18L2 42V18z')"/></svg>
+  <p class="mono">Taille du cristal — <span id="loaderPct">0</span>&nbsp;%</p>
+</div>
+
+<header class="site-header">
+  <a class="wordmark" href="#top" data-go="0">AURIQUE</a>
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#ch2" data-go="1">L'huile</a>
+    <a href="#ch4" data-go="3">L'or</a>
+    <a href="#rituel" data-anchor="rituel">Le rituel</a>
+    <a href="#commander" class="nav-cta" data-anchor="commander">Commander</a>
+  </nav>
+</header>
+
+<ol class="rail" id="rail" aria-label="Chapitres"></ol>
+
+<main id="top">
+  <section class="film" id="film" aria-label="Le film : du cristal à l'or">
+    <div class="stage" id="stage">
+      <canvas id="filmCanvas" aria-hidden="true"></canvas>
+      <div class="scrim scrim-l" id="scrimL"></div>
+      <div class="scrim scrim-r" id="scrimR"></div>
+      <canvas id="sparks" aria-hidden="true"></canvas>
+      <canvas id="fx" aria-hidden="true"></canvas>
+
+      <article class="chap left" data-ch="0">
+        <p class="kicker mono">I — Le cristal</p>
+        <h1 class="title"><span class="ln">Taillé comme</span><span class="ln">une <em>pierre</em>.</span></h1>
+        <p class="body">Le bouchon est un cristal facetté à la main&nbsp;: cinquante-sept facettes, comme un brillant. Il attrape la lumière avant même qu'on l'ouvre.</p>
+        <p class="hint mono"><i></i>Descendre dans le flacon</p>
+      </article>
+
+      <article class="chap right" data-ch="1" id="ch2">
+        <p class="kicker mono">II — L'huile</p>
+        <h2 class="title"><span class="ln">L'huile qui</span><span class="ln"><em>porte</em> la lumière.</span></h2>
+        <p class="body">Sept huiles végétales pressées à froid — camélia, argan, rose musquée, jojoba — et des feuilles d'or 24 carats en suspension.</p>
+        <p class="note mono">Or 24 ct · 30 ml · flacon de cristal taillé</p>
+      </article>
+
+      <article class="chap left" data-ch="2">
+        <p class="kicker mono">III — La facette</p>
+        <h2 class="title"><span class="ln">Regardez</span><span class="ln">à <em>travers</em>.</span></h2>
+        <p class="body">Chaque facette renvoie la lumière autrement&nbsp;: l'or n'y est jamais deux fois au même endroit.</p>
+      </article>
+
+      <article class="chap left" data-ch="3" id="ch4">
+        <p class="kicker mono">IV — L'or</p>
+        <h2 class="title"><span class="ln">À l'intérieur,</span><span class="ln">une <em>constellation</em>.</span></h2>
+        <p class="body">Les feuilles d'or dérivent lentement dans l'huile. Une goutte en emporte quelques-unes, qui fondent sur la peau en un voile lumineux.</p>
+      </article>
+
+      <article class="chap left" data-ch="4">
+        <p class="kicker mono">V — La goutte</p>
+        <h2 class="title"><span class="ln">Une goutte</span><span class="ln"><em>suffit</em>.</span></h2>
+        <p class="body">Le soir, sur la peau encore tiède. Le matin, il n'en reste que l'éclat.</p>
+      </article>
+
+      <!-- product card, cut like an emerald -->
+      <aside class="gem" id="gem" aria-labelledby="gemName">
+        <div class="gem-in">
+          <p class="kicker mono">Aurique N°7</p>
+          <h3 id="gemName" class="gem-name">Huile <em>d'or</em></h3>
+          <p class="gem-notes">Camélia, argan, rose musquée, jojoba, onagre, squalane d'olive, tocophérol. Feuilles d'or 24&nbsp;carats.</p>
+          <p class="mono gem-specs">30 ml · 24 ct · 168 €</p>
+          <a class="btn" href="#commander" data-anchor="commander"><span>Commander</span></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="after" id="after">
+    <p class="lead reveal">L'or, <em>dans la paume</em>.</p>
+
+    <section class="block formula" aria-labelledby="fTitle">
+      <div class="block-head reveal">
+        <p class="kicker mono">La formule</p>
+        <h2 id="fTitle" class="h">Sept huiles, <em>un</em> métal.</h2>
+      </div>
+      <ul class="oils" id="oils"></ul>
+    </section>
+
+    <section class="block ritual" id="rituel" aria-labelledby="rTitle">
+      <div class="block-head reveal">
+        <p class="kicker mono">Le rituel</p>
+        <h2 id="rTitle" class="h">Trois gestes, <em>le soir</em>.</h2>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><span class="n">I</span><p>Déposer une goutte au creux de la paume. Une seule&nbsp;: l'or se partage.</p></li>
+        <li class="reveal"><span class="n">II</span><p>Frotter les mains pour la tiédir, jusqu'à ce que les feuilles d'or fondent.</p></li>
+        <li class="reveal"><span class="n">III</span><p>Presser sur le visage, sans masser. Laisser la lumière faire le reste.</p></li>
+      </ol>
+    </section>
+
+    <section class="block order" id="commander" aria-labelledby="oTitle">
+      <p class="kicker mono reveal">Aurique N°7 · Huile d'or</p>
+      <h2 id="oTitle" class="h big reveal">Commander un <em>flacon</em>.</h2>
+      <p class="mono specs reveal">30 ml · 24 ct · 168 €</p>
+      <button class="btn big reveal" id="orderBtn" type="button"><span>Commander</span></button>
+      <p class="mono msg" id="orderMsg" aria-live="polite"></p>
+      <a class="back mono" id="back" href="#top">Revenir au cristal ↑</a>
+    </section>
+
+    <footer class="foot">
+      <span class="wordmark small">AURIQUE</span>
+      <span class="mono">Maison fictive — concept. Marque et prix inventés.</span>
+      <span class="mono">Film généré image par image · aucune coupure.</span>
+    </footer>
+  </section>
+</main>
+
+<div class="cursor" id="cursor" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1 19 10 10 19 1 10z"/></svg></div>
+<video id="loop" src="media/loop.mp4" muted playsinline loop preload="auto" hidden></video>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

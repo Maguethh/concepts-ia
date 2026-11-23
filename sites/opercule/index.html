@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Opercule — Soleil scellé</title>
+<meta name="description" content="Opercule N°01 « Soleil scellé » — bougie de cire d'abeille pure coulée dans une vasque d'albâtre. Maison fictive, concept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..500,0..100,0..1;1,9..144,300..500,0..100,0..1&family=Hanken+Grotesk:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Loader: a hexagonal cell filling with honey -->
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <svg class="loader-hex" viewBox="0 0 100 115" aria-hidden="true">
+    <defs><clipPath id="hexClip"><path d="M50 2 98 29.5v56L50 113 2 85.5v-56z"/></clipPath></defs>
+    <rect id="loaderFill" x="0" y="115" width="100" height="115" clip-path="url(#hexClip)" fill="#E3A535"/>
+    <path d="M50 2 98 29.5v56L50 113 2 85.5v-56z" fill="none" stroke="#E3A535" stroke-width="1.2"/>
+  </svg>
+  <p class="mono loader-label">Préchauffage de la cire — <span id="loaderPct">0</span>&nbsp;%</p>
+</div>
+
+<header class="site-header" id="header">
+  <a class="wordmark" href="#top" data-go="0" aria-label="Opercule, retour au début">OPERCULE</a>
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#ch3" data-go="2">La cire</a>
+    <a href="#albatre" data-anchor="albatre">L'albâtre</a>
+    <a href="#rituel" data-anchor="rituel">Le rituel</a>
+    <a href="#reserver" class="nav-cta" data-anchor="reserver">Réserver</a>
+  </nav>
+</header>
+
+<!-- Wax thermometer: progress + chapter navigation -->
+<aside class="thermo" id="thermo" aria-label="Thermomètre de cire — chapitres">
+  <div class="thermo-read mono" aria-hidden="true"><span class="odo" id="odo"></span><span class="deg">°C</span></div>
+  <svg class="thermo-svg" id="thermoSvg" viewBox="0 0 14 400" preserveAspectRatio="none" aria-hidden="true">
+    <defs><clipPath id="tubeClip"><rect x="3" y="0" width="8" height="388" rx="4"/></clipPath></defs>
+    <rect x="3" y="0" width="8" height="388" rx="4" fill="none" stroke="rgba(227,165,53,.35)" stroke-width="1"/>
+    <path id="thermoFill" clip-path="url(#tubeClip)" d="" fill="#E3A535"/>
+  </svg>
+  <svg class="thermo-bulb" viewBox="0 0 20 23" aria-hidden="true"><path id="bulbPath" d="M10 1 19 6v11l-9 5-9-5V6z" fill="#E3A535" stroke="#E3A535"/></svg>
+  <ol class="thermo-ticks" id="thermoTicks"></ol>
+</aside>
+
+<main id="top">
+  <!-- ============ THE FILM (scroll-scrubbed) ============ -->
+  <section class="film" id="film" aria-label="Le film : du rayon de miel à la flamme">
+    <div class="stage" id="stage">
+      <canvas id="filmCanvas" aria-hidden="true"></canvas>
+      <canvas id="liveCanvas" aria-hidden="true"></canvas>
+      <div class="scrim scrim-left" id="scrimL"></div>
+      <div class="scrim scrim-right" id="scrimR"></div>
+      <div class="scrim scrim-veil" id="scrimV"></div>
+      <div class="coulee-fallback" id="couleeFallback" aria-hidden="true"></div>
+
+      <article class="chap pos-left" data-ch="0" id="ch1">
+        <p class="kicker mono">I · 21 °C — La matière brute</p>
+        <h1 class="melt"><span class="ln">Le soleil, mis</span><span class="ln">en <em>réserve</em>.</span></h1>
+        <p class="body">Avant d'être une flamme, c'était un été entier. Les abeilles ont changé la lumière en nectar, le nectar en miel, puis ont scellé chaque alvéole d'un couvercle de cire&nbsp;: l'opercule. Nous avons simplement attendu le soir.</p>
+        <p class="note mono">Note de cirier — une alvéole d'ouvrière mesure environ 5,3&nbsp;mm.</p>
+        <p class="hint mono"><span class="hint-line"></span>Descendre — la cire attend.</p>
+      </article>
+
+      <article class="chap pos-right" data-ch="1" id="ch2">
+        <p class="kicker mono">II · 35 °C — La pierre</p>
+        <h2 class="melt"><span class="ln">Une pierre qui</span><span class="ln">laisse passer</span><span class="ln">le <em>jour</em>.</span></h2>
+        <p class="body">La vasque est taillée dans un seul bloc d'albâtre, puis polie à la main jusqu'à six millimètres d'épaisseur. Au soleil, elle s'éclaire sur la tranche. Retenez-la&nbsp;: ce soir, c'est elle qui s'allumera.</p>
+        <p class="note mono">Note de cirier — vers 35&nbsp;°C, la température d'une ruche, la cire s'assouplit sans couler.</p>
+      </article>
+
+      <article class="chap pos-left" data-ch="2" id="ch3">
+        <p class="kicker mono">III · 64 °C — Point de fusion</p>
+        <h2 class="melt"><span class="ln">Rien ne presse.</span><span class="ln">Tout <em>fond</em>.</span></h2>
+        <p class="body">Les alvéoles s'affaissent une à une et disparaissent dans leur propre or. Nous fondons la cire au bain-marie, jamais au-dessus de 80&nbsp;°C, puis la filtrons trois fois sur un lin serré&nbsp;: elle ne garde que sa couleur, celle du miel qu'elle protégeait.</p>
+        <p class="note mono">Note de cirier — la cire d'abeille fond entre 62 et 64&nbsp;°C.</p>
+      </article>
+
+      <article class="chap pos-left ink-ivory" data-ch="3" id="ch4">
+        <p class="kicker mono">IV · 72 °C — Immersion</p>
+        <h2 class="melt"><span class="ln">À l'intérieur,</span><span class="ln">tout est <em>or</em>.</span></h2>
+        <p class="body">C'est ici, tant que tout est liquide, que nous infusons nos absolus&nbsp;: propolis, ciste, foin coupé, fleur de tilleul. Quarante-huit heures, le temps qu'ils ne fassent plus qu'un avec la cire.</p>
+        <p class="note mono">Note de cirier — pour un kilo de cire, une colonie consomme six à huit kilos de miel.</p>
+      </article>
+
+      <article class="chap pos-center ink-dark" data-ch="4" id="ch5">
+        <p class="kicker mono">V · 60 °C — La prise</p>
+        <h2 class="melt"><span class="ln">Ce qui coulait</span><span class="ln">se <em>tient</em>.</span></h2>
+        <p class="body">En refroidissant, la cire se trouble, pâlit, se fige. Trois jours de repos à l'abri du jour, dans la vasque même où elle brûlera.</p>
+      </article>
+
+      <article class="chap pos-left" data-ch="5" id="ch6">
+        <p class="kicker mono">VI · ≈ 1 000 °C — Le soir</p>
+        <h2 class="melt"><span class="ln">Rendre au <em>soir</em></span><span class="ln">ce que l'été</span><span class="ln">a donné.</span></h2>
+        <p class="body">Une mèche de coton pur, soixante heures de lumière. À la première flamme, l'albâtre s'allume de l'intérieur, comme une lanterne de miel.</p>
+        <div class="flame-ctl">
+          <p class="hint mono" id="flameHint"><span class="hint-line"></span>Approchez la main de la flamme. Soufflez, si vous osez.</p>
+          <div class="flame-btns">
+            <button class="mono chip" id="blowBtn" type="button">Souffler</button>
+            <button class="mono chip" id="lightBtn" type="button" hidden>Rallumer</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product tablet: an elongated hexagon that pours, then sets -->
+      <div class="tablet" id="tablet" aria-labelledby="tabletName">
+        <svg class="tablet-fill" id="tabletFillSvg" viewBox="0 0 400 600" preserveAspectRatio="none" aria-hidden="true">
+          <path id="tabletFill" d=""/>
+        </svg>
+        <div class="tablet-seal mono" aria-hidden="true">N°01</div>
+        <div class="tablet-content">
+          <p class="kicker mono">Opercule N°01</p>
+          <h3 id="tabletName" class="tablet-name">« Soleil scellé »</h3>
+          <p class="tablet-notes">Cire d'abeille pure. Absolus de propolis, ciste, foin coupé, fleur de tilleul. Vasque d'albâtre taillée main.</p>
+          <p class="mono tablet-specs">280 g · ≈ 60 h · Ø 14 cm</p>
+          <p class="tablet-price"><span class="mono">128 €</span></p>
+          <a class="seal-btn" href="#reserver" data-anchor="reserver"><span>Réserver</span></a>
+          <p class="mono tablet-refill">Recharge de la vasque — 78 €</p>
+          <p class="mono tablet-live" id="liveLine" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AFTER THE FILM: set wax, ivory page ============ -->
+  <section class="after" id="after">
+    <p class="after-lead"><em>La lumière, gardée pour plus tard.</em></p>
+
+    <section class="block formula" id="formule" aria-labelledby="formuleTitle">
+      <header class="block-head">
+        <p class="kicker mono">Le rayon</p>
+        <h2 id="formuleTitle" class="h-ed">La formule en <em>sept</em> alvéoles.</h2>
+        <p class="body">Survolez une alvéole pour la remplir, touchez-la pour l'operculer et lire ce qu'elle contient.</p>
+      </header>
+      <div class="comb" id="comb"></div>
+      <p class="note mono comb-note">Pourquoi l'hexagone&nbsp;? C'est la forme qui partage un plan en cellules égales avec le moins de paroi possible. Conjecture du nid d'abeille, démontrée par Thomas Hales en 1999.</p>
+    </section>
+
+    <section class="block weigh" id="poids" aria-labelledby="poidsTitle">
+      <header class="block-head">
+        <p class="kicker mono">Ce que pèse une bougie</p>
+        <h2 id="poidsTitle" class="h-ed">Un été, en <em>quatre</em> chiffres.</h2>
+      </header>
+      <dl class="figures">
+        <div class="fig"><dt class="mono">Cire d'abeille</dt><dd><span class="num" data-to="280">0</span><small>g</small></dd></div>
+        <div class="fig"><dt class="mono">Miel consommé par la colonie</dt><dd>≈ <span class="num" data-to="2" data-dec="0">0</span><small>kg</small></dd></div>
+        <div class="fig"><dt class="mono">Point de fusion</dt><dd><span class="num" data-to="62">0</span>–<span class="num" data-to="64">0</span><small>°C</small></dd></div>
+        <div class="fig"><dt class="mono">Combustion</dt><dd>≈ <span class="num" data-to="60">0</span><small>h</small></dd></div>
+      </dl>
+      <div class="evenings">
+        <label for="evening" class="mono">Des soirées de <output id="eveningH">2</output>&nbsp;h</label>
+        <input type="range" id="evening" min="1" max="4" step="1" value="2">
+        <p class="evening-out">soit <strong id="eveningN">30</strong> soirées de lumière.</p>
+      </div>
+    </section>
+
+    <section class="block alabaster" id="albatre" aria-labelledby="albatreTitle">
+      <div class="alab-media">
+        <img src="media/alabaster_day.webp" alt="La vasque d'albâtre en plein jour, bougie éteinte" class="alab-img day" width="1920" height="1072" loading="lazy">
+        <img src="media/alabaster_night.webp" alt="La même vasque de nuit, allumée de l'intérieur" class="alab-img night" width="1920" height="1072" loading="lazy">
+        <div class="daynight" role="group" aria-label="Lumière">
+          <button type="button" class="mono chip on" data-dn="day" aria-pressed="true">Jour</button>
+          <button type="button" class="mono chip" data-dn="night" aria-pressed="false">Nuit</button>
+        </div>
+      </div>
+      <div class="alab-text">
+        <p class="kicker mono">L'albâtre</p>
+        <h2 id="albatreTitle" class="h-ed">Une pierre assez fine pour que la flamme la <em>traverse</em>.</h2>
+        <p class="body">Chaque vasque est taillée et polie à la main dans un bloc d'albâtre de Volterra&nbsp;: un cylindre de 14 × 5,5&nbsp;cm aux parois de 6&nbsp;mm. Le jour, elle a la douceur d'un savon. Le soir, elle devient lanterne.</p>
+        <p class="note mono">Provenance fictive — maison de concept.</p>
+      </div>
+    </section>
+
+    <section class="block ritual" id="rituel" aria-labelledby="rituelTitle">
+      <header class="block-head">
+        <p class="kicker mono">Le rituel</p>
+        <h2 id="rituelTitle" class="h-ed">Quatre gestes, pour <em>soixante</em> heures.</h2>
+      </header>
+      <ol class="gestures">
+        <li><span class="roman">i.</span><p>Première combustion de deux à trois heures, jusqu'à ce que la cire fonde jusqu'aux bords.</p></li>
+        <li><span class="roman">ii.</span><p>Recouper la mèche à 5&nbsp;mm avant chaque allumage.</p></li>
+        <li><span class="roman">iii.</span><p>Jamais plus de quatre heures d'affilée.</p></li>
+        <li><span class="roman">iv.</span><p>Éteindre en couchant la mèche dans la cire. Ne soufflez pas — sauf plus haut, sur cette page.</p></li>
+      </ol>
+    </section>
+
+    <section class="block refill" id="recharge" aria-labelledby="rechargeTitle">
+      <svg class="refill-anim" viewBox="0 0 200 120" aria-hidden="true">
+        <defs><clipPath id="vesselIn"><rect x="38" y="44" width="124" height="48" rx="4"/></clipPath></defs>
+        <rect class="refill-wax" x="38" y="44" width="124" height="48" clip-path="url(#vesselIn)"/>
+        <path d="M30 40h140v56a6 6 0 0 1-6 6H36a6 6 0 0 1-6-6z" fill="none" stroke="#2B1B10" stroke-width="1.2"/>
+      </svg>
+      <div>
+        <p class="kicker mono">La recharge</p>
+        <h2 id="rechargeTitle" class="h-ed">Rapportez la vasque vide, nous la <em>recoulons</em>.</h2>
+        <p class="body">La pierre est faite pour durer une vie. La cire, pour être rendue au soir, encore et encore.</p>
+        <p class="mono price-line">Recharge — 78 €</p>
+      </div>
+    </section>
+
+    <section class="block reserve" id="reserver" aria-labelledby="reserveTitle">
+      <p class="kicker mono">Opercule N°01 · « Soleil scellé »</p>
+      <h2 id="reserveTitle" class="h-ed big">Réserver une <em>vasque</em>.</h2>
+      <p class="mono reserve-specs">280 g · ≈ 60 h · Ø 14 cm · 128 €</p>
+      <button type="button" class="seal-btn big" id="sealBtn"><span>Réserver</span></button>
+      <p class="mono seal-msg" id="sealMsg" aria-live="polite"></p>
+      <a href="#top" class="back-link mono" id="backLink">Revenir au rayon ↑</a>
+    </section>
+
+    <footer class="foot">
+      <span class="wordmark small">OPERCULE</span>
+      <span class="mono">Maison fictive — concept. Marque, provenance et prix inventés.</span>
+      <span class="mono">Film généré image par image · aucune coupure.</span>
+    </footer>
+  </section>
+</main>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <svg viewBox="0 0 20 23"><path d="M10 1 19 6v11l-9 5-9-5V6z"/></svg>
+</div>
+
+<video id="vidLoop" src="media/flame_loop.mp4" muted playsinline loop preload="auto" crossorigin="anonymous" hidden></video>
+<video id="vidBlow" src="media/blow_out.mp4" muted playsinline preload="auto" crossorigin="anonymous" hidden></video>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

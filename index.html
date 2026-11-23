@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concepts — sites films IA</title>
+<meta name="description" content="Des sites concepts pour des marques inventées. Chaque page est un film généré par IA que l&#x27;on pilote au scroll, avec des interactions en WebGL.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0b0a;--ink:#ede7dc;--mute:#9b948a;--line:rgba(237,231,220,.12);--serif:'Fraunces',Georgia,serif;--sans:'Hanken Grotesk',system-ui,sans-serif;--ease:cubic-bezier(.2,.7,.1,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--ink);font:300 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1320px,92vw);margin:0 auto}
+header{padding:clamp(56px,11vh,120px) 0 clamp(40px,8vh,90px);border-bottom:1px solid var(--line)}
+.kick{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+h1{font:300 clamp(48px,8.4vw,132px)/.92 var(--serif);letter-spacing:-.025em;margin:22px 0 28px;max-width:11ch}
+h1 em{font-style:italic;color:#d9c39a}
+.lead{max-width:54ch;color:#c9c2b6;font-size:clamp(16px,1.25vw,19px)}
+.count{display:flex;gap:28px;margin-top:34px;font-size:13px;color:var(--mute)} .count b{display:block;font:300 34px/1 var(--serif);color:var(--ink);margin-bottom:6px}
+main{padding:clamp(30px,6vh,70px) 0}
+.site{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(30px,6vh,64px) 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.site.in{opacity:1;transform:none}
+.site:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1.55fr)}
+.site:nth-child(even) .prev{order:2}
+.prev{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-radius:4px;background:#151311;cursor:ew-resize}
+.prev img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 1.4s var(--ease)}
+.prev:hover img{transform:scale(1.045)}
+.prev::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);border-radius:4px;pointer-events:none}
+.scrub{position:absolute;left:18px;right:18px;bottom:16px;height:2px;background:rgba(255,255,255,.18);opacity:0;transition:opacity .4s}
+.scrub i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc)}
+.prev:hover .scrub,.prev.auto .scrub{opacity:1}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-content:center}
+.num{font:300 15px/1 var(--serif);color:var(--acc);padding-top:6px}
+.badge{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.meta h2{font:300 clamp(34px,3.6vw,58px)/1 var(--serif);letter-spacing:-.015em;margin:12px 0 6px}
+.line{font:italic 300 clamp(16px,1.3vw,20px)/1.3 var(--serif);color:var(--acc)}
+.desc{margin:18px 0 18px;color:#c4bdb1;max-width:44ch}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px} .tags li{font-size:12px;padding:5px 11px;border:1px solid var(--line);border-radius:30px;color:#b9b2a6}
+.go{grid-column:2;margin-top:24px;justify-self:start;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;padding:13px 22px;border:1px solid color-mix(in srgb,var(--acc) 55%,transparent);border-radius:40px;transition:background .4s,color .4s}
+.go span{display:inline-block;margin-left:8px;transition:transform .4s var(--ease)}
+.go:hover{background:var(--acc);color:#0c0b0a} .go:hover span{transform:translateX(5px)}
+footer{padding:50px 0 70px;color:var(--mute);font-size:13px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer p{max-width:70ch}
+@media (max-width:860px){.site,.site:nth-child(even){grid-template-columns:1fr} .site:nth-child(even) .prev{order:0} .prev{cursor:pointer}}
+@media (prefers-reduced-motion:reduce){.site{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <p class="kick">Concepts · sites films · 2026</p>
+  <h1>Trois maisons <em>imaginaires</em>.</h1>
+  <p class="lead">Des sites concepts pour des marques inventées. Chaque page est un film généré par IA que l&#x27;on pilote au scroll, avec des interactions en WebGL.</p>
+  <div class="count"><div><b>3</b>sites</div><div><b>WebGL</b>rendu en direct</div><div><b>IA</b>images et vidéos</div></div>
+</header>
+<main class="wrap">
+  <article class="site" style="--acc:#c9a45a">
+    <a class="prev" href="sites/aurique/" data-slug="aurique" aria-label="Ouvrir Aurique">
+      <img src="thumbs/aurique/08.webp" alt="" loading="lazy">
+      <span class="scrub"><i></i></span>
+    </a>
+    <div class="meta">
+      <span class="num">01</span>
+      <div class="txt">
+        <p class="badge">Maison fictive</p>
+        <h2>Aurique</h2>
+        <p class="line">Huile d&#x27;or N°7</p>
+        <p class="desc">Sept huiles précieuses et des feuilles d&#x27;or dans un flacon de cristal taillé. Une loupe « feu du diamant » suit le curseur, des paillettes d&#x27;or tombent au scroll.</p>
+        <ul class="tags"><li>Film continu</li><li>WebGL</li><li>Loupe au curseur</li></ul>
+      </div>
+      <a class="go" href="sites/aurique/">Ouvrir le site <span>→</span></a>
+    </div>
+  </article>
+  <article class="site" style="--acc:#d99a3c">
+    <a class="prev" href="sites/opercule/" data-slug="opercule" aria-label="Ouvrir Opercule">
+      <img src="thumbs/opercule/08.webp" alt="" loading="lazy">
+      <span class="scrub"><i></i></span>
+    </a>
+    <div class="meta">
+      <span class="num">02</span>
+      <div class="txt">
+        <p class="badge">Maison fictive</p>
+        <h2>Opercule</h2>
+        <p class="line">Soleil scellé</p>
+        <p class="desc">Une bougie de cire d&#x27;abeille coulée dans une vasque d&#x27;albâtre. La température de la cire suit le film, la flamme réagit au curseur.</p>
+        <ul class="tags"><li>Film continu</li><li>WebGL</li><li>Flamme interactive</li></ul>
+      </div>
+      <a class="go" href="sites/opercule/">Ouvrir le site <span>→</span></a>
+    </div>
+  </article>
+  <article class="site" style="--acc:#b0894e">
+    <a class="prev" href="sites/cassiel/" data-slug="cassiel" aria-label="Ouvrir Le Cassiel">
+      <img src="thumbs/cassiel/08.webp" alt="" loading="lazy">
+      <span class="scrub"><i></i></span>
+    </a>
+    <div class="meta">
+      <span class="num">03</span>
+      <div class="txt">
+        <p class="badge">Maison fictive</p>
+        <h2>Le Cassiel</h2>
+        <p class="line">Palace, Paris</p>
+        <p class="desc">Une soirée dans un palace imaginaire de 1911 : on allume la façade, on prend la clé au bar, on monte au cinquième et on laisse passer la nuit sur le balcon.</p>
+        <ul class="tags"><li>Visite au scroll</li><li>WebGL</li><li>Clé, ascenseur, nuit</li></ul>
+      </div>
+      <a class="go" href="sites/cassiel/">Ouvrir le site <span>→</span></a>
+    </div>
+  </article>
+</main>
+<footer class="wrap"><p>Maisons, lieux, produits et prix imaginaires. Images et vidéos générées par IA.</p><p>Chaque site s'ouvre dans la même fenêtre ; il est fait pour un écran d'ordinateur.</p></footer>
+<script>
+(() => {
+  const N = 24;
+  const cache = {};
+  const load = (slug) => cache[slug] || (cache[slug] = Array.from({ length: N }, (_, i) => { const im = new Image(); im.src = `thumbs/${slug}/${String(i).padStart(2, '0')}.webp`; return im; }));
+  const show = (a, k) => { const fr = load(a.dataset.slug); const i = Math.max(0, Math.min(N - 1, Math.round(k * (N - 1)))); const im = a.querySelector('img'); if (fr[i].complete) im.src = fr[i].src; a.querySelector('.scrub i').style.width = `${(i / (N - 1)) * 100}%`; };
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  document.querySelectorAll('.prev').forEach((a) => {
+    if (fine) {
+      a.addEventListener('pointerenter', () => load(a.dataset.slug));
+      a.addEventListener('pointermove', (e) => { const r = a.getBoundingClientRect(); show(a, (e.clientX - r.left) / r.width); });
+      a.addEventListener('pointerleave', () => show(a, 8 / (N - 1)));
+    }
+  });
+  // phones: the previews play by themselves while on screen
+  let t = 0;
+  const playing = new Set();
+  if (!fine) setInterval(() => { t++; playing.forEach((a) => { a.classList.add('auto'); show(a, (t % N) / (N - 1)); }); }, 140);
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) e.target.classList.add('in');
+    const a = e.target.querySelector('.prev');
+    if (!fine) e.isIntersecting ? playing.add(a) : playing.delete(a);
+  }), { threshold: .25 });
+  document.querySelectorAll('.site').forEach((s) => io.observe(s));
+})();
+</script>
+</body>
+</html>
