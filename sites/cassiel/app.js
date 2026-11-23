@@ -36,14 +36,14 @@
   /* ---------------- assets ---------------- */
   const IMG = {};
   const FR = {};
-  const loadImg = (src) => new Promise((res) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
+  const loadImg = (src) => new Promise((res) => { const i = new Image(); i.decoding = 'async'; i.onload = () => i.decode().catch(() => {}).then(() => res(i)); i.onerror = () => res(null); i.src = src; });
   const frameSrc = (id, k) => `frames/${id}/${String(k + 1).padStart(3, '0')}.jpg`;
   async function loadClip(c) {
     FR[c.id] = FR[c.id] || new Array(c.n).fill(null);
     const order = [];
     for (let step = 16; step >= 1; step = step >> 1) for (let k = 0; k < c.n; k += step) if (!order.includes(k)) order.push(k);
-    for (let i = 0; i < order.length; i += 8) {
-      await Promise.all(order.slice(i, i + 8).map(async (k) => { FR[c.id][k] = await loadImg(frameSrc(c.id, k)); }));
+    for (let i = 0; i < order.length; i += 12) {
+      await Promise.all(order.slice(i, i + 12).map(async (k) => { FR[c.id][k] = await loadImg(frameSrc(c.id, k)); }));
     }
   }
   function nearestFrame(id, k) {
@@ -322,7 +322,15 @@ void main(){
     for (const id of ['01', '02']) { FR[id] = new Array(97).fill(null); await Promise.all(FR[id].map(async (_, k) => { FR[id][k] = await loadImg(frameSrc(id, k)); tick(); })); }
     $('#loader').classList.add('done');
     requestAnimationFrame(frame);
-    for (const c of TL.filter((s) => s.t === 'clip' && !['01', '02'].includes(s.id))) await loadClip(c);
+    /* loader v2 */
+    // the clip nearest ahead of the visitor first, then the next one, and so on
+    const todo = TL.filter((s) => s.t === 'clip' && !['01', '02'].includes(s.id));
+    while (todo.length) {
+      const y = lenis.scroll ?? scrollY, at = segs.findIndex((g) => y < g.y0 + g.len);
+      const pos = (c) => { const j = TL.indexOf(c); return j >= at ? j - at : 100 + at - j; };
+      todo.sort((p, q) => pos(p) - pos(q));
+      await loadClip(todo.shift());
+    }
     await loadClip(ORBIT);
   })();
 })();

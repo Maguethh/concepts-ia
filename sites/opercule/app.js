@@ -89,7 +89,7 @@
     return new Promise((res) => {
       const img = new Image();
       img.decoding = 'async';
-      img.onload = () => { frames[i] = img; loaded++; res(); };
+      img.onload = () => img.decode().catch(() => {}).then(() => { frames[i] = img; loaded++; res(); });
       img.onerror = () => { loaded++; res(); };
       img.src = src(i);
     });
@@ -104,19 +104,35 @@
   }
   async function loadAll() {
     const order = loadOrder();
-    const coarse = order.indexOf(16 * Math.floor((FRAMES - 1) / 16)) + 1; // end of the 1/16 pass
+    /* loader v2 */
+    // where the visitor is first (12 frames behind to 72 ahead of the current one), then coarse to fine;
+    // the loader waits for the 1/16 pass and the 72 frames ahead
+    const gen = tier, req = new Uint8Array(FRAMES);
     let k = 0;
+    const here = () => Math.max(0, Math.min(FRAMES - 1, Math.round(Number.isFinite(curFrame) ? curFrame : 0)));
+    const pick = () => {
+      const c = here();
+      for (let d = 0; d <= 72; d++) {
+        const f = c + d; if (f < FRAMES && !req[f]) { req[f] = 1; return f; }
+        if (d <= 12) { const g = c - d; if (g >= 0 && !req[g]) { req[g] = 1; return g; } }
+      }
+      while (k < order.length) { const i = order[k++]; if (!req[i]) { req[i] = 1; return i; } }
+      return -1;
+    };
+    const need = Math.ceil(FRAMES / 16) + 73;
+    const gate = () => {
+      for (let i = 0; i < FRAMES; i += 16) if (!frames[i]) return false;
+      const c = here(); for (let i = c; i < Math.min(FRAMES, c + 73); i++) if (!frames[i]) return false;
+      return true;
+    };
     const worker = async () => {
-      while (k < order.length) {
-        const i = order[k++];
+      for (let i = pick(); i >= 0 && gen === tier; i = pick()) {
         await loadFrame(i);
-        const p = Math.min(1, loaded / coarse);
-        setLoader(p);
-        if (!coarseDone && loaded >= coarse) { coarseDone = true; hideLoader(); }
+        if (!coarseDone) { setLoader(Math.min(.99, loaded / need)); if (gate()) { coarseDone = true; setLoader(1); hideLoader(); } }
         if (i === 0) needDraw = true;
       }
     };
-    await Promise.all(Array.from({ length: 6 }, worker));
+    await Promise.all(Array.from({ length: 10 }, worker));
   }
   function nearest(i) {
     if (frames[i]) return frames[i];

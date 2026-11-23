@@ -64,15 +64,40 @@
     return Math.max(innerWidth * dpr, innerHeight * dpr * 16 / 9) <= 1280 * 1.15 ? 'd1280' : 'dnat';
   };
   const src = (i) => `frames/${tier}/${String(i + 1).padStart(4, '0')}.webp`;
-  const loadFrame = (i) => new Promise((res) => { const im = new Image(); im.decoding = 'async'; im.onload = () => { frames[i] = im; loaded++; res(); }; im.onerror = () => { loaded++; res(); }; im.src = src(i); });
+  const loadFrame = (i) => new Promise((res) => { const im = new Image(); im.decoding = 'async'; im.onload = () => im.decode().catch(() => {}).then(() => { frames[i] = im; loaded++; res(); }); im.onerror = () => { loaded++; res(); }; im.src = src(i); });
   async function loadAll() {
     const order = [], seen = new Set(), push = (i) => { if (i >= 0 && i < FRAMES && !seen.has(i)) { seen.add(i); order.push(i); } };
     for (let i = 0; i < 24; i++) push(i);
     for (const st of [16, 8, 4, 2, 1]) for (let i = 0; i < FRAMES; i += st) push(i);
-    const coarse = order.indexOf(16 * Math.floor((FRAMES - 1) / 16)) + 1;
+    /* loader v2 */
+    // where the visitor is first (12 frames behind to 72 ahead of the current one), then coarse to fine;
+    // the loader waits for the 1/16 pass and the 72 frames ahead
+    const gen = tier, req = new Uint8Array(FRAMES);
     let k = 0;
-    const worker = async () => { while (k < order.length) { const i = order[k++]; await loadFrame(i); setLoader(Math.min(1, loaded / coarse)); if (!coarseDone && loaded >= coarse) { coarseDone = true; hideLoader(); } if (i === 0) dirty = true; } };
-    await Promise.all(Array.from({ length: 6 }, worker));
+    const here = () => Math.max(0, Math.min(FRAMES - 1, Math.round(Number.isFinite(cur) ? cur : 0)));
+    const pick = () => {
+      const c = here();
+      for (let d = 0; d <= 72; d++) {
+        const f = c + d; if (f < FRAMES && !req[f]) { req[f] = 1; return f; }
+        if (d <= 12) { const g = c - d; if (g >= 0 && !req[g]) { req[g] = 1; return g; } }
+      }
+      while (k < order.length) { const i = order[k++]; if (!req[i]) { req[i] = 1; return i; } }
+      return -1;
+    };
+    const need = Math.ceil(FRAMES / 16) + 73;
+    const gate = () => {
+      for (let i = 0; i < FRAMES; i += 16) if (!frames[i]) return false;
+      const c = here(); for (let i = c; i < Math.min(FRAMES, c + 73); i++) if (!frames[i]) return false;
+      return true;
+    };
+    const worker = async () => {
+      for (let i = pick(); i >= 0 && gen === tier; i = pick()) {
+        await loadFrame(i);
+        if (!coarseDone) { setLoader(Math.min(.99, loaded / need)); if (gate()) { coarseDone = true; setLoader(1); hideLoader(); } }
+        if (i === 0) dirty = true;
+      }
+    };
+    await Promise.all(Array.from({ length: 10 }, worker));
   }
   const nearest = (i) => { if (frames[i]) return frames[i]; for (let d = 1; d < FRAMES; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; };
   const setLoader = (p) => { $('loaderFill').setAttribute('y', String(60 - 60 * p)); $('loaderPct').textContent = Math.round(p * 100); };
