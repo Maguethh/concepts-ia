@@ -195,4 +195,9 @@ $$('[data-toast]').forEach(b => b.onclick = () => toast(b.dataset.toast));
 showPlate(D.states.hero.plate); trafficOn('A'); setUI('hero'); compass('A'); fit();
 addEventListener('load', () => { for (const [, , c] of D.edges){ clipEl(c, false); clipEl(c, true); } });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) for (const v of Object.values(traffic)) if (v.classList.contains('on') && v.paused) v.play().catch(()=>{}); });
-const h0 = location.hash.slice(1); if (h0 && D.states[h0]) setTimeout(() => goTo(h0), 300);
+// a link straight to a view (#L3, #street…) shows it at once, without playing the moves that lead there
+const h0 = location.hash.slice(1);
+if (h0 && D.states[h0] && h0 !== 'hero'){
+  state = h0; showPlate(D.states[h0].plate); compass(D.states[h0].cam); fit(); trafficOn(D.states[h0].cam); arrive();
+  if (h0[0] === 'L') lastFloor = h0;
+}

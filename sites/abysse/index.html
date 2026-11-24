@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abysse — Quatre mille mètres sous la lumière</title>
+  <meta name="description" content="Abysse 41. Un récit en cinq chapitres, du premier soleil à la plaine abyssale." />
+  <script type="module" crossorigin src="./assets/vDA4NHid.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/CUw6vQ0I.css">
+</head>
+<body>
+  <canvas id="gl"></canvas>
+  <div id="veil"></div>
+
+  <div id="loader">
+    <div class="lmark">ABYSSE</div>
+    <div class="lline"><i></i></div>
+    <div class="lsub">Quatre mille mètres sous la lumière</div>
+  </div>
+
+  <header class="ui top">
+    <a class="brand" href="#" data-go="0">ABYSSE</a>
+    <nav>
+      <a href="#" data-go="0.13">Le récit</a>
+      <a href="#" data-go="1">La pièce</a>
+    </nav>
+    <button id="sound" type="button" aria-pressed="false"><span class="bars"><i></i><i></i><i></i></span><span class="lbl">Son</span></button>
+  </header>
+
+  <aside id="gauge" class="ui">
+    <div class="g-track"><i id="g-dot"></i></div>
+    <div class="g-read"><span id="depth">0</span><small>mètres</small></div>
+    <div class="g-lbl" id="g-lbl">Surface</div>
+    <div class="g-dive" id="dive"></div>
+  </aside>
+
+  <section class="chap hero" data-in="0" data-out=".06">
+    <p class="kicker">Maison Abysse · Pièce de plongée</p>
+    <h1 class="split">Il est des montres faites<br />pour la lumière.<br /><em>Celle-ci est née<br />pour l'obscurité.</em></h1>
+    <p class="lead">Descendre</p>
+  </section>
+
+  <!-- story ranges (scroll p): prologue 0–.06 · I .118–.215 · m1 .243–.312 · II .33–.436 · m2 .448–.484
+       · III .496–.572 · m3 .584–.626 · IV .64–.736 · m4 .748–.782 · V .80–.842 · épilogue > .895
+       moments (.moment) are full-screen lines between chapters; letters surface via data-split="chars" (src/ui/moments.css) -->
+  <section class="chap" data-in=".118" data-out=".215">
+    <p class="num">I</p>
+    <p class="kicker">Le premier soleil · Zéro mètre</p>
+    <h2 class="split">La mer s'allume<br />d'un bord à l'autre.</h2>
+    <p class="body split">L'or du matin cède au plein jour, et le monde n'a jamais été aussi clair. Sous la surface, quatre mille mètres de nuit attendent, immobiles, depuis toujours.</p>
+  </section>
+
+  <!-- moment 1 · the watch goes through the surface; seen from below, the sky turns to a ceiling of quicksilver -->
+  <section class="chap center moment" data-in=".243" data-out=".312" style="--glow: 222, 230, 236">
+    <p class="m-text" data-split="chars">Le temps d'un battement,<br />le ciel devient un plafond d'argent.</p>
+  </section>
+
+  <section class="chap right" data-in=".33" data-out=".436">
+    <p class="num">II</p>
+    <p class="kicker">Le passage · Trente mètres</p>
+    <h2 class="split">Le monde se referme<br />sans un bruit.</h2>
+    <p class="body split">La lumière se brise en mille éclats sur le titane, puis s'efface, une couleur après l'autre. Le rouge d'abord. Le bleu en dernier.</p>
+  </section>
+
+  <!-- moment 2 · the plunge from forty to a hundred metres: the day is only heard, no longer seen -->
+  <section class="chap center moment" data-in=".448" data-out=".484">
+    <p class="m-text" data-split="chars">Là-haut, le jour n'est plus<br />qu'une rumeur bleue.</p>
+  </section>
+
+  <section class="chap" data-in=".496" data-out=".572">
+    <p class="num">III</p>
+    <p class="kicker">Le crépuscule · Trois cents mètres</p>
+    <h2 class="split">Ici, le soleil<br />ne descend plus.</h2>
+    <p class="body split">Alors la montre éclaire elle-même son chemin. Ses index s'allument un à un, comme une ville vue de très haut.</p>
+  </section>
+
+  <!-- moment 3 · below the photic zone (300 → 800 m): the last ray, then the night that has no morning -->
+  <section class="chap center moment" data-in=".584" data-out=".626">
+    <p class="m-text" data-split="chars">Le dernier rayon s'arrête ici.<small>Plus bas, la nuit n'a jamais connu de matin.</small></p>
+  </section>
+
+  <section class="chap right" data-in=".64" data-out=".736">
+    <p class="num">IV</p>
+    <p class="kicker">La plaine abyssale · Quatre mille mètres</p>
+    <h2 class="split">Quatre cents<br />atmosphères.<br /><em>Pas un tremblement.</em></h2>
+    <p class="body split">Une épave dort dans le noir, des êtres portent leur propre lumière. La lunette avance, cran après cran, et ne recule jamais.</p>
+    <p class="clicks"><span id="clicks">0</span> crans sur cent vingt</p>
+  </section>
+
+  <!-- moment 4 · the landing on the abyssal plain, in the marine snow -->
+  <section class="chap center moment" data-in=".748" data-out=".782">
+    <p class="m-text" data-split="chars">Tout au fond,<br />le temps tombe en neige.</p>
+  </section>
+
+  <section class="chap center" data-in=".80" data-out=".842">
+    <p class="num">V</p>
+    <h2 class="split"><em>Ce que l'on rapporte<br />des profondeurs<br />ne se raconte pas.</em></h2>
+  </section>
+
+  <section id="config" class="ui">
+    <p class="kicker">Épilogue · La pièce</p>
+    <h2 class="split">Cela se porte.</h2>
+    <p class="body">Abysse 41. Titane grade 5 brossé à la main, saphir bombé, lunette céramique à cent vingt crans. Étanche à quatre mille mètres.</p>
+    <div class="opt" data-kind="dial">
+      <p>Cadran</p>
+      <div class="sw">
+        <button data-v="abysse" class="on" style="--c:#1d7a8c" title="Abysse"></button>
+        <button data-v="noir" style="--c:#24262a" title="Nuit"></button>
+        <button data-v="glacier" style="--c:#b9cfdb" title="Glacier"></button>
+      </div>
+      <span class="name">Abysse</span>
+    </div>
+    <div class="opt" data-kind="insert">
+      <p>Lunette</p>
+      <div class="sw">
+        <button data-v="marine" class="on" style="--c:#223256" title="Marine"></button>
+        <button data-v="noir" style="--c:#151619" title="Nuit"></button>
+        <button data-v="abysse" style="--c:#123e48" title="Abysse"></button>
+      </div>
+      <span class="name">Marine</span>
+    </div>
+    <div class="opt" data-kind="strap">
+      <p>Bracelet</p>
+      <div class="sw">
+        <button data-v="noir" class="on" style="--c:#0b0c0e" title="Nuit"></button>
+        <button data-v="marine" style="--c:#14213b" title="Marine"></button>
+        <button data-v="ardoise" style="--c:#3b4048" title="Ardoise"></button>
+      </div>
+      <span class="name">Nuit</span>
+    </div>
+    <div class="cta">
+      <span class="edition">Quatre cents pièces numérotées</span>
+      <button id="buy" type="button">Demander une présentation privée</button>
+    </div>
+    <p class="fine">Maison fictive · Concept réalisé en temps réel<br>Textures des fonds : Poly Haven (CC0) · Thon : « Tuna Fish » par DittyDos (CC BY 4.0)</p>
+  </section>
+
+  <div id="frame" class="ui"><i class="t"></i><i class="r"></i><i class="b"></i><i class="l"></i></div>
+  <div id="meta" class="ui">
+    <span>Réf. AB·41</span><span>Titane grade 5</span><span>Saphir bombé</span><span>Étanche à 4 000 m</span><span>Série de 400 pièces</span>
+  </div>
+  <div class="ui hint" id="hint"><span>Descendre</span><i></i></div>
+  <div id="scroll"></div>
+</body>
+</html>

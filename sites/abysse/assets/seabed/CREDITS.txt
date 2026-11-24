@@ -1,0 +1,12 @@
+Abysse - seabed assets (site/public/assets/seabed/)
+
+Poly Haven textures, CC0 1.0 (public domain), https://polyhaven.com - resized to 1024 px and re-encoded as WebP:
+  rockA_*.webp  <- seaside_rock          https://polyhaven.com/a/seaside_rock
+  rockB_*.webp  <- rock_surface          https://polyhaven.com/a/rock_surface
+  rockC_*.webp  <- worn_rock_natural_01  https://polyhaven.com/a/worn_rock_natural_01  (lichen spots removed, desaturated)
+  rust_*.webp   <- rust_coarse_01        https://polyhaven.com/a/rust_coarse_01
+  (albedo = diffuse, normal = nor_gl (OpenGL), rough = rough)
+
+Generated for this project (no outside material):
+  sand_albedo.webp, sand_normal.webp, sand_rough.webp - procedural, tileable (abysse/seabed/prep_tex.py)
+  seabed.glb - terrain, rocks, wreck, flora and brittle stars modelled procedurally in Blender (abysse/seabed/seabed.py)
