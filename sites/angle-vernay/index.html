@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'Angle Vernay — Paris 8e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1795513870">
+</head>
+<body class="s-hero">
+<div id="vp"><div id="scene"><div id="stage">
+  <!-- holds: one still per state -->
+  <div id="plates"></div>
+  <!-- transitions (pre-rendered clips) are inserted here by app.js, under the traffic -->
+  <!-- traffic: one transparent layer per camera; each loop starts and ends with an empty road -->
+  <div id="traffic"></div>
+  <canvas id="cars" class="layer"></canvas>
+  <div id="occ" class="layer"></div>
+  <svg id="bands" viewBox="0 0 1 1" preserveAspectRatio="none"></svg>
+  <svg id="shapes" viewBox="0 0 1 1" preserveAspectRatio="none"></svg>
+  <div id="pins"></div>
+</div></div></div>
+<div id="bandtip"></div>
+
+<header>
+  <div class="logo"><span>L'ANGLE</span><b>VERNAY</b></div>
+  <button class="compass" aria-label="Orientation"><svg viewBox="0 0 24 24"><path d="M12 3l3.5 15L12 15.5 8.5 18z" fill="currentColor"/></svg></button>
+  <nav class="tabs">
+    <button data-go="homes">LOGEMENTS</button><button data-go="roof">TOITS</button><button data-go="street">RUE</button>
+  </nav>
+  <div class="right">
+    <button class="units"><span data-u="m2" class="on">M²</span> / <span data-u="ft2">FT²</span></button>
+    <button class="contact" data-toast="Démonstration — contact non actif">CONTACT</button>
+  </div>
+</header>
+
+<section id="hero">
+  <h1>L'Angle<br>Vernay</h1>
+  <p>Quinze appartements haussmanniens à l'angle du boulevard, entièrement restaurés. Choisissez un étage sur l'immeuble.</p>
+  <div class="cta"><button class="white" data-go="homes">CHOISIR UN LOGEMENT</button>
+    <div class="addr"><span class="pinic"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 1 1 12 0c0 5.4-6 11-6 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/></svg></span><b>ANGLE BD. VERNAY,<br>PARIS 8E</b></div></div>
+  <div class="stats"><div><b>15</b><span>logements sur<br>cinq étages</span></div><div><b data-area="1240">1 240 m²</b><span>surface<br>habitable</span></div><div><b data-area="184">184 m²</b><span>plus grand<br>logement</span></div></div>
+</section>
+
+<div id="levels"></div>
+
+<div id="homecard" class="card">
+  <button class="back" data-go="list">← LISTE DES LOGEMENTS</button>
+  <div class="row"><div><small>LOGEMENT</small><div class="big"><b id="hcNum">501</b><span><b id="hcType"></b><i id="hcMeta"></i></span></div></div>
+  <div class="btns"><button class="white" id="hcOpen">VISITER</button><button class="ghost" data-toast="Démonstration — rendez-vous non actif">PRENDRE RDV</button></div></div>
+</div>
+
+<div id="hover" class="card"><img alt=""><div><b></b><span></span><small>CLIQUER POUR OUVRIR</small></div></div>
+
+<div id="streetui">
+  <button class="back" data-go="homes">← L'IMMEUBLE</button>
+  <h2>Au pied de l'immeuble</h2>
+  <div class="cards"></div>
+</div>
+
+<aside id="panel">
+  <div class="ph"><img alt=""><button class="x" aria-label="Fermer">×</button></div>
+  <div class="pb">
+    <small id="pEyebrow"></small>
+    <h3 id="pTitle"></h3>
+    <div class="grid" id="pGrid"></div>
+    <button class="white wide" data-toast="Démonstration — rendez-vous non actif">PRENDRE RENDEZ-VOUS</button>
+    <div class="thumbs" id="pThumbs"></div>
+  </div>
+</aside>
+<div id="toast"></div>
+<script src="data.js?v=1795513870"></script>
+<script src="cars.js?v=1795513870"></script>
+<script src="app.js?v=1795513870"></script>
+</body>
+</html>

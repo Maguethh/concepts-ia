@@ -1,0 +1,122 @@
+:root{--glass:rgba(22,24,30,.62);--glass2:rgba(22,24,30,.82);--line:rgba(255,255,255,.16);--white:#fff;--mute:rgba(255,255,255,.66);--f:'Poppins',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#0b0d11;color:#fff;font-family:var(--f);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+/* ---------- stage: 16:9 box covering the viewport (the reel crops the same renders for its portrait layout) */
+#vp{position:fixed;inset:0;overflow:hidden}
+#scene{position:absolute;inset:0;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.panel #scene{transform:translateX(15%)}
+.clip{opacity:0;transition:opacity .3s linear}.clip.on{opacity:1}
+#cars,#occ{opacity:0;transition:opacity .35s linear}#cars.on,#occ.on{opacity:1}
+#occ{background-size:100% 100%;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-mode:luminance;mask-mode:luminance}
+#bands{position:absolute;inset:0;width:100%;height:100%;display:none}
+.s-hero:not(.busy) #bands{display:block}
+#bands polygon{fill:rgba(255,255,255,0);stroke:rgba(255,255,255,0);stroke-width:1.5px;vector-effect:non-scaling-stroke;cursor:pointer;transition:all .2s}
+#bands g.hl polygon{fill:rgba(255,255,255,.14);stroke:rgba(255,255,255,.8)}
+#bandtip{position:fixed;z-index:25;padding:8px 12px;border-radius:10px;background:rgba(22,24,30,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);pointer-events:none;opacity:0;transition:opacity .15s;display:flex;flex-direction:column}
+#bandtip.show{opacity:1}#bandtip b{font-size:12px}#bandtip span{font-size:10px;color:rgba(255,255,255,.66)}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.layer{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+#plates img{opacity:0}#plates img.on{opacity:1}
+#traffic video{opacity:0;transition:opacity .35s linear}
+#traffic video.on{opacity:1}
+#shapes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#shapes polygon{fill:rgba(255,255,255,0);stroke:rgba(255,255,255,0);stroke-width:1.5px;vector-effect:non-scaling-stroke;transition:all .3s}
+#shapes g.hl polygon{fill:rgba(255,255,255,.16);stroke:rgba(255,255,255,.85)}
+/* ---------- pins: dark round badges with the home number (white when active) */
+#pins{position:absolute;inset:0}
+.pin{position:absolute;transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;
+  min-width:58px;height:58px;padding:0 12px;border-radius:29px;background:rgba(28,30,36,.9);border:2px solid rgba(255,255,255,.28);
+  display:grid;place-items:center;font-size:19px;font-weight:600;letter-spacing:.01em;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.pin:after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border:8px solid transparent;border-top-color:rgba(28,30,36,.9);border-bottom:0}
+.on-pins .pin{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.pin.sold{opacity:.45!important}
+.pin:hover,.pin.active{background:#fff;color:#111;border-color:#fff}
+.pin:hover:after,.pin.active:after{border-top-color:#fff}
+.pin.shop{min-width:52px;height:52px;background:rgba(255,255,255,.92);color:#111;border-color:#fff}
+.pin.shop:after{border-top-color:rgba(255,255,255,.92)}
+/* ---------- header */
+header{position:fixed;left:0;right:0;top:0;height:88px;z-index:20;pointer-events:none}
+header>*{pointer-events:auto}
+.logo{position:absolute;left:28px;top:22px;display:flex;flex-direction:column;font-size:11px;letter-spacing:.06em;line-height:1.25;color:var(--mute)}
+.logo b{color:#fff;font-weight:700}
+.compass{position:absolute;left:28px;top:84px;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center;background:rgba(22,24,30,.25)}
+.compass svg{width:16px;height:16px;transition:transform .8s}
+.tabs{position:absolute;left:50%;top:22px;transform:translateX(-50%);display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tabs button{padding:8px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.85)}
+.tabs button.on{background:#fff;color:#111}
+.right{position:absolute;right:24px;top:20px;display:flex;gap:8px}
+.units{padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:600;color:var(--mute);background:rgba(22,24,30,.35)}
+.units span.on{color:#fff}
+.contact{padding:8px 18px;border-radius:999px;background:#fff;color:#111;font-size:11px;font-weight:600;letter-spacing:.06em}
+/* ---------- hero */
+#hero{position:fixed;left:28px;bottom:30px;max-width:520px;z-index:10;transition:opacity .5s,transform .5s}
+body:not(.s-hero) #hero{opacity:0;transform:translateY(16px);pointer-events:none}
+#hero h1{font-size:clamp(40px,5vw,64px);font-weight:600;line-height:1.02;letter-spacing:-.01em}
+#hero p{margin-top:12px;font-size:13px;line-height:1.55;color:rgba(255,255,255,.82);max-width:380px}
+#hero .cta{display:flex;align-items:center;gap:16px;margin-top:18px}
+.white{padding:11px 20px;border-radius:999px;background:#fff;color:#111;font-size:11px;font-weight:600;letter-spacing:.06em}
+.ghost{padding:10px 20px;border-radius:999px;border:1.5px solid rgba(255,255,255,.7);font-size:11px;font-weight:600;letter-spacing:.06em}
+.addr{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.06em;line-height:1.35}
+.pinic{width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center}.pinic svg{width:15px;height:15px}
+.stats{display:flex;gap:56px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.stats b{display:block;font-size:26px;font-weight:600;line-height:1.1}
+.stats span{font-size:11px;color:var(--mute);line-height:1.3}
+#vp:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(8,9,12,.75),rgba(8,9,12,0) 45%);opacity:1;transition:opacity .6s}
+body:not(.s-hero):not(.s-street) #vp:after{opacity:0}
+/* ---------- level pills (right) */
+#levels{position:fixed;right:24px;top:110px;z-index:15;display:flex;flex-direction:column;gap:10px;opacity:0;pointer-events:none;transition:opacity .4s}
+.s-homes #levels{opacity:1;pointer-events:auto}
+#levels button{width:44px;height:30px;border-radius:999px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:11px;font-weight:600}
+#levels button.on{background:#fff;color:#111}
+/* ---------- cards */
+.card{background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:16px}
+#homecard{position:fixed;left:28px;bottom:28px;z-index:15;padding:16px 20px 18px;width:min(560px,calc(100vw - 56px));opacity:0;transform:translateY(12px);pointer-events:none;transition:all .45s}
+.s-homes #homecard.show{opacity:1;transform:none;pointer-events:auto}
+.back{font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--mute)}
+#homecard .row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:10px}
+#homecard small{font-size:9px;letter-spacing:.1em;color:var(--mute)}
+#homecard .big{display:flex;align-items:center;gap:14px}
+#homecard .big>b{font-size:44px;font-weight:700;line-height:1}
+#homecard .big span{display:flex;flex-direction:column}#homecard .big span b{font-size:15px;font-weight:600}#homecard .big i{font-style:normal;font-size:11px;color:var(--mute)}
+#homecard .btns{display:flex;flex-direction:column;gap:8px}
+#hover{position:fixed;z-index:16;width:230px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .2s,transform .2s}
+#hover.show{opacity:1;transform:none}
+#hover img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+#hover div{padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px}
+#hover b{font-size:13px}#hover span{font-size:11px;color:var(--mute)}#hover small{margin-top:6px;font-size:9px;letter-spacing:.1em}
+/* ---------- street */
+#streetui{position:fixed;left:28px;right:28px;bottom:28px;z-index:15;opacity:0;pointer-events:none;transform:translateY(12px);transition:all .45s}
+.s-street.ready #streetui{opacity:1;transform:none;pointer-events:auto}
+#streetui h2{font-size:30px;font-weight:600;margin:4px 0 12px}
+#streetui .cards{display:flex;gap:10px;overflow-x:auto}
+#streetui .sc{display:flex;gap:12px;align-items:center;padding:10px;min-width:280px;border-radius:14px;background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#streetui .sc img{width:74px;height:54px;border-radius:8px;object-fit:cover}
+#streetui .sc b{font-size:13px}#streetui .sc span{display:block;font-size:11px;color:var(--mute)}
+/* ---------- panel: slides from the left, the scene shifts aside */
+#panel{position:fixed;left:0;top:0;bottom:0;width:min(440px,41vw);z-index:30;background:#0f1014;transform:translateX(-101%);transition:transform .6s cubic-bezier(.3,.7,.2,1);overflow-y:auto}
+.panel #panel{transform:none}
+.ph{position:relative}.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.x{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);font-size:20px;line-height:1;background:rgba(0,0,0,.2)}
+.pb{padding:18px 22px 26px}
+.pb small{font-size:10px;letter-spacing:.1em;color:var(--mute)}
+.pb h3{font-size:26px;font-weight:600;margin:4px 0 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin-bottom:18px}
+.grid div{font-size:10px;letter-spacing:.08em;color:var(--mute)}.grid b{display:block;font-size:15px;color:#fff;letter-spacing:0;margin-top:2px}
+.wide{width:100%;padding:13px}
+.thumbs{display:flex;gap:8px;margin-top:16px}.thumbs img{flex:1;min-width:0;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.6;transition:opacity .2s}
+.thumbs img.on,.thumbs img:hover{opacity:1}
+#toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);z-index:40;padding:11px 18px;border-radius:999px;background:#fff;color:#111;font-size:12px;opacity:0;transition:all .35s;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.busy .tabs,.busy #levels{pointer-events:none}
+@media (max-width:760px){
+  .logo{left:18px}.compass{left:18px}.right{right:14px}
+  .tabs{top:62px}.compass{top:120px}
+  #levels{right:14px;top:120px}
+  #hero{left:18px;right:18px}
+  .stats{gap:28px}
+  #homecard{left:12px;bottom:12px;width:calc(100vw - 24px)}
+  #panel{width:min(440px,86vw)}
+  #homecard .row{flex-direction:column;align-items:flex-start}#homecard .btns{flex-direction:row}
+  .pin{min-width:72px;height:72px;font-size:24px;border-radius:36px}
+}

@@ -1,4 +1,4 @@
-# Mang Production — concepts IA (3)
+# Mang Production — concepts IA (4)
 
 Page de présentation interne des concepts.
 
@@ -8,3 +8,4 @@ Ouvrir en local : double-cliquer sur `ouvrir.bat`, ou `python -m http.server 808
 - Opercule : `sites/opercule/`
 - Aurique : `sites/aurique/`
 - Le Cassiel : `sites/cassiel/`
+- L'Angle Vernay : `sites/angle-vernay/`
